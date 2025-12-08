@@ -26,7 +26,6 @@ class AuthClient:
         logger.debug('Переменные окружения загружены!')
 
 
-    @create_loggers_decorator
     async def get_authorization(self):
         headers = {
             'accept': 'application/json, text/plain, */*',  # ожиадаемый результат в формате json
