@@ -3,7 +3,13 @@ import sys
 import asyncio
 
 async def create_logger_info():
-    logger.add(sys.stdout, colorize=True, format='<green>{time}</green> <level>{message}</level>', level='INFO')
+    logger.add(
+        'logs/result_log.log',
+        colorize=True,
+        format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}",
+        filter=lambda record: record['level'].name == 'INFO',
+        level='INFO'
+    )
 
 async def create_logger_success():
     logger.add(
@@ -38,6 +44,7 @@ async def create_logger_error():
     rotation='200 MB'
     )
 async def main():
+    await create_logger_info()
     await create_logger_success()
     await create_logger_debug()
     await create_logger_warning()
