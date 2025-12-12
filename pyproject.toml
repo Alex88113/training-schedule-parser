@@ -1,0 +1,13 @@
+[tool.mypy]
+plugins = [
+    "mypy.plugins.asyncio",
+]
+
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false  # Пока разрешаем нетипизированные определения
+
+[[tool.mypy.overrides]]
+module = "pydantic.*"
+ignore_missing_imports = true
