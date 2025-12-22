@@ -1,20 +1,27 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
-import asyncio
-from loggers_module.logger_module import logger
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+from pydantic import BaseModel, ValidationError
 
-BASE_DIR = Path(__file__).parent.parent
-ENV_PATH = BASE_DIR / '.env'
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv()
 
-class AuthSettings(BaseSettings):
-    TOP_USERNAME: str
-    PASSWORD: str
-    APPLICATION_KEY: str
-    ID_CITY: str | None =  None
 
-    model_config = SettingsConfigDict(
-        env_file=ENV_PATH,
-        env_file_encoding='utf-8',
-        case_sensitive=False,
-        extra='ignore' # динамит лишние поля в .env
-    )
+class UserSettings(BaseModel):
+    username: str
+    password: str
+    application_key: str
+    id_city: None = None
+
+user_data = {
+    'username': os.getenv('TOP_USERNAME'),
+    'password': os.getenv('PASSWORD'),
+    'application_key': os.getenv('APPLICATION_KEY'),
+    'id_city': None
+}
+
+try:
+    settings = UserSettings(**user_data)
+
+except ValidationError as error:
+    print(error)
