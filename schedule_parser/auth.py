@@ -1,11 +1,13 @@
 import asyncio
 import os
+
 from aiohttp import (
     ClientConnectionError,
     ServerConnectionError
 )
 from loguru import logger
 import aiohttp
+
 from .config_settings import *
 from datetime import datetime
 from pydantic import BaseModel
@@ -49,7 +51,7 @@ class AuthClients:
                         return response_data['refresh_token']
 
         except ServerConnectionError as error_connect:
-            print('Ошибка со стороны сервера: {e}', e=error_connect)
+            logger.error('Ошибка со стороны сервера: {e}', e=error_connect)
 
         except ClientConnectionError as error:
             logger.error('Возникла ошибка при подключении к серверу: {e}', e=error)
