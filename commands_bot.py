@@ -1,12 +1,16 @@
+import sys
 import os
 import asyncio
-from schedule_parser.auth import AuthClients
-from schedule_parser.parser import getting_schedule
+
 from loguru import logger
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-import sys
+from config_user_settings.config_settings import *
+from aiogram import F
 from dotenv import load_dotenv
+
+from schedule_parser.auth import AuthClients
+from schedule_parser.parser import getting_schedule
 
 load_dotenv()
 
@@ -40,12 +44,24 @@ dp = Dispatcher()
 logger.info('БОТ СОЗДАН!')
 
 async def get_schedule():
-    obj_class = AuthClients()
+    obj_class = AuthClients(user_data=user_data)
     token = await obj_class.get_authorization()
     schedule = await getting_schedule(token)
     return schedule
 
-@dp.message(Command('schedule'))
-async def getting_my_schedule(message: types.Message):
+@dp.message(Command('start'))
+async def cmd_start(message: types.Message):
+    kb = [
+        [types.KeyboardButton(text='Учебное расписание на сегодня')]
+    ]
+    keyboard = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+    )
+    await message.answer('Хотите ли вы увидеть учебное расписание на сегодня?', reply_markup=keyboard)
+
+@dp.message(F.text.lower().capitalize().strip() == 'Учебное расписание на сегодня')
+async def input_schedule(message: types.Message):
     result = await get_schedule()
     await message.answer(result)
+

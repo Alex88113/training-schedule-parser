@@ -7,3 +7,4 @@ async def main():
 if __name__ == '__main__':
     logger.info('Бот успешно запущен!')
     asyncio.run(main())
+
