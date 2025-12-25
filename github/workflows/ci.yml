@@ -2,15 +2,9 @@ name: CI for project
 
 on:
   push:
-<<<<<<< HEAD
     branches: [ master ]
   pull_request:
     branches: [ master ]
-=======
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
->>>>>>> 6dc85414345a24142715335c9e43000695639dd6
 
 jobs:
   hello-world:
