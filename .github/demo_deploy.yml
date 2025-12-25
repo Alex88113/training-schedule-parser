@@ -1,0 +1,8 @@
+name: Dame Workflows
+on: workflows_dispatch
+jobs:
+   print:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Print to console
+          run: echo Hello GitHub Actions !
