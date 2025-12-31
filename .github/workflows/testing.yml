@@ -8,7 +8,7 @@ on:
     
 env:
   # Установите значения по умолчанию для тестов
-  USERNAME: ${{ secrets.USERNAME }}
+  USERNAME: ${{ secrets.TOP_USERNAME }}
   PASSWORD: ${{ secrets.PASSWORD }}
   APPLICATION_KEY: ${{ secrets.APPLICATION_KEY }}
   
@@ -34,14 +34,14 @@ jobs:
     
     - name: Debug environment variables
       run: |
-        echo "USERNAME: $USERNAME"
+        echo "USERNAME: $TOP_USERNAME"
         echo "PASSWORD: $PASSWORD"
         echo "APPLICATION_KEY: $APPLICATION_KEY"
 
     - name: Run testing test config settings
       env:
         # Переопределите для конкретного шага, если нужно
-        USERNAME: ${{ secrets.USERNAME || 'test_user' }}
+        USERNAME: ${{ secrets.TOP_USERNAME || 'test_user' }}
         PASSWORD: ${{ secrets.PASSWORD || 'test_pass' }}
         APPLICATION_KEY: ${{ secrets.APPLICATION_KEY || 'test_key' }}
       run: python test_config_settings.py
