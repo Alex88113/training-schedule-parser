@@ -15,6 +15,20 @@ class TestSettings:
     """
     Класс TestSettings проверяет корректность пользовательских данных из модуля config_settings.py
     """
+    user_data1 = UserSettings(**user_data)
+
+    @pytest_asyncio.fixture
+    async def test_config(self):
+        return {
+            'username': self.user_data1.username,
+            'password': self.user_data1.password,
+            'application_key': self.user_data1.application_key,
+            'id_city': None
+        }
+
     @pytest.mark.asyncio
-    async def test_username_config(self):
-        assert os.getenv('TOP_USERNAME') == os.getenv('TOP_USERNAME')
+    async def test_username_config(self, test_config):
+        result ={
+            'username': test_config['username']
+        }
+        assert result['username'] == os.getenv('TOP_USERNAME')
