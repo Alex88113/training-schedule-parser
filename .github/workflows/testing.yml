@@ -5,7 +5,13 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+    
+env:
+  # Установите значения по умолчанию для тестов
+  USERNAME: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  APPLICATION_KEY: ${{ secrets.APPLICATION_KEY }}
+  
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -25,17 +31,29 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-asyncio
 
+    
+    - name: Debug environment variables
+      run: |
+        echo "USERNAME: $USERNAME"
+        echo "PASSWORD: $PASSWORD"
+        echo "APPLICATION_KEY: $APPLICATION_KEY"
+
     - name: Run testing test config settings
+      env:
+        # Переопределите для конкретного шага, если нужно
+        USERNAME: ${{ secrets.USERNAME || 'test_user' }}
+        PASSWORD: ${{ secrets.PASSWORD || 'test_pass' }}
+        APPLICATION_KEY: ${{ secrets.APPLICATION_KEY || 'test_key' }}
       run: python test_config_settings.py
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Checkout code
-      uses: actions/chckout@v3
+      uses: actions/checkout@v3
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
