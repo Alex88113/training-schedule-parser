@@ -22,7 +22,7 @@ class TestSettings:
             'username': self.user_data.username,
             'password': self.user_data.password,
             'application_key': self.user_data.application_key,
-            'id_city': self.user_data.id_city
+            'id_city': None
         }
 
     @pytest.mark.asyncio
