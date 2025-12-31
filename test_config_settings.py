@@ -32,20 +32,22 @@ class TestSettings:
             'top_username': test_config['top_username']
         }
         assert result['top_username'] == os.getenv('TOP_USERNAME')
+        logger.info('логин успешно протестирован!')
    
     @pytest.mark.asyncio
     async def test_password(self, test_config):
         user_password = {'password': test_config['password']}
         assert user_password['password'] == os.getenv('PASSWORD')
-        
+        logger.info('id city тест прошел успешно!')
 
     @pytest.mark.asyncio
     async def test_application(self, test_config):
         application_key = {'application_key': test_config['application_key']}
         assert application_key['application_key'] == os.getenv('APPLICATION_KEY')
-        
+        logger.info('тест токена доступа прошел успешно!')
 
     @pytest.mark.asyncio
     async def test_id_city(self, test_config):
         user_city = {'id_city': test_config['id_city']}
         assert user_city['id_city'] == None
+        logger.info('id city тест прошел успешно!')
