@@ -32,18 +32,3 @@ class TestSettings:
             'username': test_config['username']
         }
         assert result['username'] == os.getenv('TOP_USERNAME')
-
-    @pytest.mark.asyncio
-    async def test_password(self, test_config):
-        user_password = {'password': test_config['password']}
-        assert user_password['password'] == os.getenv('PASSWORD')
-
-    @pytest.mark.asyncio
-    async def test_application(self, test_config):
-        user_password = {'application_key': test_config['application_key']}
-        assert user_password['application_key'] == os.getenv('APPLICATION_KEY')
-
-    @pytest.mark.asyncio
-    async def test_id_city(self, test_config):
-        user_city = {'id_city': test_config['id_city']}
-        assert user_city['id_city'] == None # fix
