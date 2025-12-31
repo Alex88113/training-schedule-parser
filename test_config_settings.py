@@ -31,5 +31,4 @@ class TestSettings:
         result ={
             'username': test_config['username']
         }
-        assert os.getenv('TOP_USERNAME')
-        == os.getenv('TOP_USERNAME')
+        assert os.getenv('TOP_USERNAME') == os.getenv('TOP_USERNAME')
