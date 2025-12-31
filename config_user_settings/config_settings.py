@@ -27,7 +27,7 @@ user_data = {
 
 try:
     settings = UserSettings(**user_data)
-    logger.success('Переменные из .env успешно импортированы!')
+    logger.success('Переменные из .env успешно импортированы!') 
 
 except ValidationError as error:
     logger.error('error validation: {e}', e=error)
