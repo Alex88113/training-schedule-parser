@@ -45,4 +45,4 @@ class TestSettings:
     @pytest.mark.asyncio
     async def test_application(self, test_config):
         user_password = {'id_city': test_config['id_city']}
-        assert user_password['id_city'] == None
+        assert user_password['id_city'] == None # fix
