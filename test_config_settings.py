@@ -6,6 +6,7 @@ import pytest_asyncio
 import pytest
 
 from dotenv import load_dotenv
+
 from config_user_settings.config_settings import *
 
 load_dotenv()
@@ -43,6 +44,6 @@ class TestSettings:
         assert user_password['application_key'] == os.getenv('APPLICATION_KEY')
 
     @pytest.mark.asyncio
-    async def test_application(self, test_config):
-        user_password = {'id_city': test_config['id_city']}
-        assert user_password['id_city'] == None # fix
+    async def test_id_city(self, test_config):
+        user_city = {'id_city': test_config['id_city']}
+        assert user_city['id_city'] == None # fix
