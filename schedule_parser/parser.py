@@ -1,13 +1,16 @@
-from .auth import AuthClients
+from datetime import *
 import asyncio
+
 import aiohttp
 from loguru import logger
-from datetime import datetime
-from .config_settings import *
+
+from config_user_settings.config_settings import *
+from .auth import AuthClients
 
 
 async def getting_schedule(token: str):
-    url_schedule: str = f"https://msapi.top-academy.ru/api/v2/schedule/operations/get-by-date?date_filter=2025-12-22"
+    today_date = date.today()
+    url_schedule: str = f"https://msapi.top-academy.ru/api/v2/schedule/operations/get-by-date?date_filter=2025-12-25"
     headers = {
         "Authorization": f"Bearer {token}",
         'Accept': 'application/json, text/plain, */*',

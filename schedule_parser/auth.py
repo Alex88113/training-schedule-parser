@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 
 from aiohttp import (
     ClientConnectionError,
@@ -8,10 +9,13 @@ from aiohttp import (
 from loguru import logger
 import aiohttp
 
-from .config_settings import *
-from datetime import datetime
-from pydantic import BaseModel
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
 
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+from config_user_settings.config_settings import *
 
 class AuthClients:
     def __init__(self, user_data: dict):
@@ -37,7 +41,7 @@ class AuthClients:
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 YaBrowser/25.10.0.0 Safari/537.36'
         }
 
-        user_data = {
+        user_data2 = {
             'username': self.user_data.username,
             'password': self.user_data.password,
             'application_key': self.user_data.application_key,
@@ -45,7 +49,7 @@ class AuthClients:
         }
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.post(self.base_url, headers=headers, json=user_data) as response:
+                async with session.post(self.base_url, headers=headers, json=user_data2) as response:
                     if response.status == 200:
                         response_data = await response.json()
                         return response_data['refresh_token']

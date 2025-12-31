@@ -5,7 +5,7 @@ from typing import Callable, Any
 
 def create_loggers_decorator(function: Callable):
     @functools.wraps(function) # сохраняю метаданные функции
-    async def wrapper(self, *args: Any, **kwargs: Any):
+    async def wrapper(self, *args: Any, **kwargs: Any) -> Any:
         logger.info('производится запуск функции {f}() ', f=function.__name__)
         result = await function(self, *args, **kwargs)
         logger.info('Работа метода: {r} завершена!', r=function.__name__)

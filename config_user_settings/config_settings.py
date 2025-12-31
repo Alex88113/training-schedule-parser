@@ -1,13 +1,18 @@
 import os
+
 from dotenv import load_dotenv
 from pathlib import Path
 from pydantic import BaseModel, ValidationError, Field
 
+from loggers_module.logger_module import *
+
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv()
 
-
 class UserSettings(BaseModel):
+    """
+    Класс базовой валидации данных из .env
+    """
     username: str = Field(min_length=1)
     password: str = Field(min_length=1)
     application_key: str = Field(min_length=1)
@@ -22,5 +27,7 @@ user_data = {
 
 try:
     settings = UserSettings(**user_data)
+    logger.success('Переменные из .env успешно импортированы!')
+
 except ValidationError as error:
-    print(error)
+    logger.error('error validation: {e}', e=error)
