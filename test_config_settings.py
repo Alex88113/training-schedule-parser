@@ -33,7 +33,7 @@ class TestSettings:
         }
         assert result['top_username'] == os.getenv('TOP_USERNAME')
    
-      @pytest.mark.asyncio
+    @pytest.mark.asyncio
     async def test_password(self, test_config):
         user_password = {'password': test_config['password']}
         assert user_password['password'] == os.getenv('PASSWORD')
