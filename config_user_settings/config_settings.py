@@ -75,7 +75,4 @@ def create_user_model():
         'id_city': None
     }
     user_model = UserSettings(**user_data).model_dump()
-    print('Пользовательская модель успешно создана!')
     return user_model
-
-print(create_user_model())
