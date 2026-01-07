@@ -18,4 +18,7 @@ class HttpClient:
             connect=20
         )
 
-        self.session = aiohttp.ClientSession(connector=self.conn, timeout=self.timeout_session)
+        self.session = aiohttp.ClientSession(
+            connector=self.conn,
+            timeout=self.timeout_session
+        )
