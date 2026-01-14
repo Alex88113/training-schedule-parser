@@ -134,24 +134,24 @@ class AuthClient(AuthorizationClient):
                     return True
                 else:
                     error_text = await resp.text()
-                    print(f'Причина {error_text}')
+                    logging.warning(f'Причина {error_text}')
                 return False
         except aiohttp.ClientConnectorError as error:
-            print(f'Не удалось подключится к серверу: {error}')
+            logging.error(f'Не удалось подключится к серверу: {error}')
 
         except Exception as error:
             print(f'произошла непредвиденная ошибка: {error}')
 
     async def get_protected_data(self, endpoint: str):
         if not self.auth_token:
-            print('Сначала выполните авторизацию')
+            logging.warning('Сначала выполните авторизацию')
 
         url = f"{self.base_url}{endpoint}"
         headers = {
             'Authorization': f'Bearer {self.auth_token}',
             'Application-Key': self.application_key
         }
-        print(f'Запрашиваю данные с {url}')
+        logging.warning(f'Запрашиваю данные с {url}')
 
         try:
             async with self.session.get(url, headers=headers) as resp:
@@ -168,26 +168,3 @@ class AuthClient(AuthorizationClient):
         except Exception as error:
             logging.error(f'произошла непредвиденная ошибка: {error}')
 
-
-async def main():
-    application_key = '6a56a5df2667e65aab73ce76d1dd737f7d1faef9c52e8b8c55ac75f565d8e8a6'
-    async with AuthClient(application_key=application_key) as client:
-        login_data = await client.login('Kuche_mu73', '6C3f6G3p')
-        print(login_data)
-        if login_data and client.auth_token:
-            logging.info(f'Получен токен: {client.auth_token[:15]}')
-        else:
-            logging.warning('Не удалось получить токен.выполните повторную авторизацию.'
-                  f'причина {login_data} | client: {client.auth_token}')
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
-
-<<<<<<< HEAD
-=======
-        self.session = aiohttp.ClientSession(
-            connector=self.conn,
-            timeout=self.timeout_session
-        )
->>>>>>> origin/developer-parser
