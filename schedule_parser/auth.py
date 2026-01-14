@@ -184,3 +184,10 @@ if __name__ == "__main__":
     asyncio.run(main())
 
 
+<<<<<<< HEAD
+=======
+        self.session = aiohttp.ClientSession(
+            connector=self.conn,
+            timeout=self.timeout_session
+        )
+>>>>>>> origin/developer-parser
